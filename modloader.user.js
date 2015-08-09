@@ -2,9 +2,10 @@
 // @name        Agar.io Modifications
 // @namespace   agar.io
 // @include     http://agar.io/
-// @version     1
+// @version     3
 // @author      MeepDarknessMeep
 // @grant       none
+// @downloadURL https://github.com/meepdarknessmeep/agar.io-modloader/raw/master/modloader.user.js
 // @description An Agar.io modification loader
 // ==/UserScript==
 
@@ -19,6 +20,16 @@ var PopulateAgarModTable = function()
 {
     var event = document.createEvent("Event");
     event.initEvent("PopulateAgarModTable", true, true);
+    
+    document.dispatchEvent(event);
+    
+}
+
+var RunPostModNotification = function()
+{
+
+    var event = document.createEvent("Event");
+    event.initEvent("PostModification", true, true);
     
     document.dispatchEvent(event);
     
@@ -62,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function()
 
     parent.insertBefore(new_script, script);
     parent.removeChild(script);
-    script = undefined;
+    
+    RunPostModNotification();
 
 });
